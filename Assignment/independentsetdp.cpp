@@ -16,21 +16,28 @@ void AddEdge(int u, int v,int w)//w == > for level or parent information
 int main()
 {
 	struct node *root=NULL;
-	cout<<"enter the number of nodes u want to enter"<<endl;
+	cout<<"Enter the number of nodes : ";
 	int n,num;
 	cin>>n;
 	int i;
 	maxset.assign(10,0);
 	int a,b;
-	cout<<"enter the edges"<<endl;
-	for(i=1;i<=n;i++)
+	cout << "Tree should be of the form\nRule 1 : '1' should be the root node.\nRule 2 : parent to child directed edges."<<endl;
+	cout<<"        1        "<<endl;
+	cout<<"      /   \\     "<<endl;
+	cout<<"     v     v     "<<endl;
+	cout<<"     2     3     "<<endl;
+	cout<<"    /  \\        "<<endl;
+	cout<<"   v    v        "<<endl;
+	cout<<"   4    5"<<endl;
+	cout<<"Enter the (n-1) directed edges"<<endl;
+	for(i=1;i<n;i++)
 	{
 		cin>>a>>b;
 		AddEdge(a,b,0);
 	}
-	cout<<"enter the root node"<<endl;
-	cin>>a;
-	cout<<mis(a)<<endl;
+	cout<<"Maximum independent set size : ";
+	cout<<mis(1)<<endl;
 	return(0);
 }
 
@@ -56,4 +63,3 @@ int mis(int num)
 	}
 	return(std::max(in,out));
 }
-	
