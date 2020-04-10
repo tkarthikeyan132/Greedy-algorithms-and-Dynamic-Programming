@@ -59,7 +59,7 @@ int main()
             int w,ws;
             w=(temp[i].m)*(temp[i].n)*(temp[i+1].n);
             ws=(temp[i].m)*(temp[i+1].n);
-            if(w<min&&ws<minsec)
+            if(w<=min&&ws<minsec)
             {
                 min = w;
                 minsec = ws;
