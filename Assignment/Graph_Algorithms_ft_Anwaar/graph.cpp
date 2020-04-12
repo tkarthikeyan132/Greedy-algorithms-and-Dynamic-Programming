@@ -75,7 +75,7 @@ void BellmanFord(Graph G, int s)
     dis[s]= 0;
     Parent[s]= s;
 
-    //now our business stars
+    //now our business starts
     //for every edge (u,v), check if going to v is cheaper through u
     int counter =0 , u ,v,w ;
     while(counter!= V-1)
@@ -97,8 +97,13 @@ void BellmanFord(Graph G, int s)
     //our distances and paths are ready by now
     for(i=0; i<V ; i++)
     {
-    cout<<" Distance of "<<i<<" from "<<s<<" is: "<<dis[i]<<endl;
-    cout<<"The path is: ";
+    cout<<" Distance of "<<i<<" from "<<s<<" is: ";
+    if(dis[i]==INT16_MAX)
+    cout<<"infinity"<<endl;
+    else
+    {
+        cout<<dis[i]<<endl;
+         cout<<"The path is: ";
 
    //extract path
     stack <int> temp;
@@ -117,6 +122,9 @@ void BellmanFord(Graph G, int s)
         cout<<u<<"-";   
     }
     cout<<endl;
+    }
+    
+   
 
 
     
@@ -155,6 +163,8 @@ void Dijkstra(Graph G, int s)
         //update min's neighbours if going through min is cheaper and they
         //are not already visited
         int u,v,w;
+        if(!G.adj[min].empty())
+        {
         for(auto it= G.adj[min].begin(); it!= G.adj[min].end() ; it++)
         {
            u= min ; v = it->first; w= it->second;
@@ -167,6 +177,7 @@ void Dijkstra(Graph G, int s)
                }
            }   
         }
+        }
 
         counter++;
     }
@@ -176,7 +187,13 @@ void Dijkstra(Graph G, int s)
 
     for(i =0; i<V ; i++)
     {
-        cout<<"Distance of "<<i<<" from "<<s<<" is :"<<dis[i]<<endl;
+        cout<<"Distance of "<<i<<" from "<<s<<" is :";
+        if(dis[i]==INT16_MAX)
+        cout<<"infinity"<<endl;
+        else
+        {
+            cout<<dis[i]<<endl;
+        
         cout<<"The path is :";
 
         //extract path
@@ -196,6 +213,7 @@ void Dijkstra(Graph G, int s)
              cout<<k<<"-";
         }
         cout<<endl;
+    }
     }
 }
 
@@ -218,9 +236,9 @@ int min_dis(int dis[],bool visit[],int V)
 
 void all_pair_shortest(Graph G)
 {
-    int V= G.getV();
-    for(int i=0; i<V; i++)
-    Dijkstra(G,i);   
+ int V= G.getV();
+ for(int i=0; i<V; i++)
+ Dijkstra(G,i);   
 }
 
 //_________________________________________________________________________________________
