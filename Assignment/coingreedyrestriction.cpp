@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 int Count(vector<int> v,int u);
+int distinct(vector<int> v);
 int main()
 {
     int n,x;
@@ -48,7 +49,7 @@ int main()
             }
         }
     }
-    for(int i = 0; i < n; i++)
+    for(int i = n-1; i >= 0; i--)
     {
         int curd = denomination[i];
         if(curd > x)
@@ -77,7 +78,7 @@ int main()
         cout << "Amount cannot be paid" << endl;
     else
     {
-        cout << "Minimum number of denominations used to obtain " << x << " is " <<denomlist[x].size() << endl;
+        cout << "Minimum number of denominations used to obtain " << x << " is " <<distinct(denomlist[x]) << endl;
         cout << "Denominations used are ";
         for(auto k = denomlist[x].begin(); k != denomlist[x].end(); k++)
         {
@@ -95,4 +96,11 @@ int Count(vector<int> v,int u)
             sum++;
     }
     return sum;
+}
+int distinct(vector<int> v)
+{
+    set<int> s;
+    for(int i=0;i<v.size();i++)
+        s.insert(v[i]);
+    return s.size();
 }
