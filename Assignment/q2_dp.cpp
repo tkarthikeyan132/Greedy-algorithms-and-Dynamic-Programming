@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 #include<cstdlib>
 using namespace std;
-int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int deno[]);
+int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int deno[],int initial_row);
 int feasibility_check(vector<int> temp, map<int,int> max_coins);
 
 int main()
@@ -69,7 +69,7 @@ int main()
     vector< pair <int, vector <int>>>solutions[k]; //contains all solutions possible along with no. of denominaations used
      for(i=0; i<k ; i++)
      {
-     if( Extract(M,i,x,&result,deno) != INT16_MAX)
+     if( Extract(M,i,x,&result,deno,i) != INT16_MAX)
     {
         int sum = 0;
         int temp; vector <int> tempo; int index=0,  counter=0;
@@ -158,7 +158,7 @@ while(1)
 
 }
 
-int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int deno[])
+int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int deno[], int initial_row)
 {
     if(M[row][column]== INT16_MAX)
     return INT16_MAX;
@@ -171,7 +171,7 @@ int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int d
     {
         if(row==0)
         {
-            if(Extract(M,row,column-deno[row],result,deno)!= INT16_MAX)
+            if(Extract(M,row,column-deno[row],result,deno,initial_row)!= INT16_MAX)
             {
             result->push_back(deno[row]);
             return 0;
@@ -180,15 +180,15 @@ int Extract(vector<vector<int>>M ,int row, int column, vector<int>*result, int d
         else
         {
 
-        if(M[row][column]==M[row-1][column]) ///multiple solutions may be possible
+        if(M[row][column]==M[row-1][column] && row!= initial_row) ///multiple solutions may be possible
         {
-            if(Extract(M,row,column-deno[row],result,deno)!= INT16_MAX) //check if it's possible to include current
+            if(Extract(M,row,column-deno[row],result,deno,initial_row)!= INT16_MAX) //check if it's possible to include current
             result->push_back(deno[row]);
-            return(Extract(M,row-1,column,result,deno));
+            return(Extract(M,row-1,column,result,deno,initial_row));
         }
         else
         {
-            if(Extract(M,row,column-deno[row],result,deno)!= INT16_MAX)
+            if(Extract(M,row,column-deno[row],result,deno,initial_row)!= INT16_MAX)
             {
                 result->push_back(deno[row]);
                 return 0;
