@@ -27,16 +27,32 @@ int main()
     for(int i = 0; i < n; i++)
     {
         int d = denomination[i];
-        if(Count(denomlist[d],d) < restriction[i])
+        if(Count(denomlist[d],d) < restriction[i] && d <= x)
         {
             denomlist[d].push_back(d);
             D[d] = 1;
         }
     }
-    sort(denomination,denomination+n);
+    for(int i = n-1; i > 0; i--)
+    {
+        for(int j = 0; j < i; j++ )
+        {
+            if(denomination[j] > denomination[j+1])
+            {
+                denomination[j] = denomination[j] ^ denomination[j+1];
+                denomination[j+1] = denomination[j] ^ denomination[j+1];
+                denomination[j] = denomination[j] ^ denomination[j+1];
+                restriction[j] = restriction[j] ^ restriction[j+1];
+                restriction[j+1] = restriction[j] ^ restriction[j+1];
+                restriction[j] = restriction[j] ^ restriction[j+1];
+            }
+        }
+    }
     for(int i = 0; i < n; i++)
     {
         int curd = denomination[i];
+        if(curd > x)
+            break;
         for( int j = curd; j <= x; j++)
         {
             if(D[j]==0 && Count(denomlist[j-curd],curd) < restriction[i])
